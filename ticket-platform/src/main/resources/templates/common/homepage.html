@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      lang="it">
+<head th:replace="~{/components/fragments :: head}">    <meta charset="UTF-8">
+    <title>Ticket Platform</title>
+</head>
+<body>
+
+<header th:insert="~{/components/fragments :: navbar('homepage')}"></header>
+
+<main class="text-center">
+<img src="https://static.vecteezy.com/system/resources/previews/022/246/405/original/mystical-mythical-character-phoenix-phoenix-bird-on-a-transparent-background-phoenix-logo-generative-ai-png.png"
+     class="img-fluid w-50" alt="phoenix">
+    <h1>
+        Close a ticket, help the world!
+    </h1>
+
+</main>
+<th:block th:replace="~{/components/fragments :: scripts}"></th:block>
+</body>
+</html>

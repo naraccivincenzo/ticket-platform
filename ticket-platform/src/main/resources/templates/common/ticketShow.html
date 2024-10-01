@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"     lang="it">
+<head th:replace="~{/components/fragments :: head}">
+    <meta charset="UTF-8">
+    <title>Ticket Platform</title>
+</head>
+<body>
+<header th:insert="~{/components/fragments :: navbar('pizzas')}"></header>
+
+<main class="container">
+    <div class="row">
+        <div class="col-12">
+            <th:block th:object="${ticket}">
+                <h2 class="py-3 text-center">Detail for [[*{get().title}]]</h2>
+                <div class="d-flex justify-content-center">
+                    <div class="card text-center" style="width: 18rem;">
+                        <div class="card-body">
+                            <h6 th:if="*{get().isStatus()}" class="card-subtitle mb-2 bg-danger text-white">[[*{get().humanStatus(get().isStatus())}]]</h6>
+                            <h6 th:unless="*{get().isStatus()}" class="card-subtitle mb-2 bg-success text-white">[[*{get().humanStatus(get().isStatus())}]]</h6>
+                            <p class="card-text">[[*{get().description}]]</p>
+                            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}" class="btn btn-primary">Go Back</a>
+                            <a sec:authorize="hasAuthority('USER')" th:href="@{/user}" class="btn btn-primary">Go Back</a>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</main>
+
+<th:block th:replace="~{/components/fragments :: scripts}"></th:block>
+</body>
+</html>
