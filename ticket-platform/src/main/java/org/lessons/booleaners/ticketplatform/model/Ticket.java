@@ -34,7 +34,7 @@ public class Ticket {
     private User user;
 
     @OneToMany(mappedBy = "ticket", cascade = {CascadeType.REMOVE})
-    private List<Note> comments;
+    private List<Note> notes;
 
     //Getter and Setter
 
@@ -93,11 +93,11 @@ public class Ticket {
         this.user = user;
     }
 
-    public List<Note> getComments() {
-        return comments;
+    public List<Note> getNotes() {
+        return notes;
     }
 
-    public void setComments(List<Note> comments) {
-        this.comments = comments;
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
     }
 }

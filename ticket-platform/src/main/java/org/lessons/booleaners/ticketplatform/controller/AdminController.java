@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,7 +15,7 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    private TicketService ticketService;
+    private TicketService tktservice;
 
     @GetMapping
     public String adminIndex(Model model,
@@ -26,9 +24,9 @@ public class AdminController {
                              String title) {
         List<Ticket> tickets;
         if (title != null && !title.isEmpty()) {
-            tickets = ticketService.findByTitle(title);
+            tickets = tktservice.findByTitle(title);
         }else {
-            tickets = ticketService.getAllTickets();
+            tickets = tktservice.getAllTickets();
         }
 
         model.addAttribute("username", authentication.getName());

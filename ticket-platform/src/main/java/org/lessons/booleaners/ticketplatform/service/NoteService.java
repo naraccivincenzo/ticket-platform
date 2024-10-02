@@ -22,6 +22,10 @@ public class NoteService {
         return repository.findById(id);
     }
 
+    public List<Note> findNoteByTicketId(int id) {
+        return repository.findNoteByTicketId(id);
+    }
+
     public Note create(Note note) {
         return repository.save(note);
     }

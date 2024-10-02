@@ -17,7 +17,7 @@ public class TicketService {
     public List<Ticket> getAllTickets() {
         return repository.findAll();
     }
-    public Optional<Ticket> findById(int id) {
+    public Ticket findById(int id) {
         return repository.findById(id);
     }
 

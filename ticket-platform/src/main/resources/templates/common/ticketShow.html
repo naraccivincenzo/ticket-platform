@@ -5,19 +5,23 @@
     <title>Ticket Platform</title>
 </head>
 <body>
-<header th:insert="~{/components/fragments :: navbar('pizzas')}"></header>
+<header sec:authorize="hasAuthority('ADMIN')" th:insert="~{/components/fragments :: navbar('admin')}"></header>
+<header sec:authorize="hasAuthority('USER')" th:insert="~{/components/fragments :: navbar('operator')}"></header>
 
 <main class="container">
     <div class="row">
-        <div class="col-12">
+        <h2 class="py-3 text-center">Detail for [[${ticket.title}]]</h2>
+        <div class="col-6">
             <th:block th:object="${ticket}">
-                <h2 class="py-3 text-center">Detail for [[*{get().title}]]</h2>
                 <div class="d-flex justify-content-center">
-                    <div class="card text-center" style="width: 18rem;">
+                    <div class="card text-center w-auto">
                         <div class="card-body">
-                            <h6 th:if="*{get().isStatus()}" class="card-subtitle mb-2 bg-danger text-white">[[*{get().humanStatus(get().isStatus())}]]</h6>
-                            <h6 th:unless="*{get().isStatus()}" class="card-subtitle mb-2 bg-success text-white">[[*{get().humanStatus(get().isStatus())}]]</h6>
-                            <p class="card-text">[[*{get().description}]]</p>
+                            <h6 th:if="*{isStatus()}" class="card-subtitle mb-2 bg-danger text-white">[[*{humanStatus(isStatus())}]]</h6>
+                            <h6 th:unless="*{isStatus()}" class="card-subtitle mb-2 bg-success text-white">[[*{humanStatus(isStatus())}]]</h6>
+                            <p class="card-text">[[*{description}]]</p>
+                            <p class="card-footer" th:if="*{getUser() != null}">
+                                User: [[*{getUser().username}]]
+                            </p>
                             <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}" class="btn btn-primary">Go Back</a>
                             <a sec:authorize="hasAuthority('USER')" th:href="@{/user}" class="btn btn-primary">Go Back</a>
                         </div>
@@ -25,6 +29,25 @@
                 </div>
             </th:block>
         </div>
+        <div class="col-6">
+            <th:block th:object="${note}">
+                <div class="d-flex justify-content-center">
+                    <div class="card text-center w-auto">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush" th:each="note : ${ticket.notes}">
+                                <li class="list-group-item" th:text="'Description: ' + ${note.note}"></li>
+                                <li class="list-group-item" th:text="'Creator: ' + ${note.author}"></li>
+                                <li class="list-group-item" th:text="'Create at: ' + ${note.createdAt}"></li>
+                            </ul>
+                            <a th:href="@{/common/{id}/note(id=${ticket.id})}" class="btn btn-success">Nuova Nota</a>
+
+
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+
     </div>
 </main>
 

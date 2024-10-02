@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "note")
-public class Note {
+public class Note{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +17,9 @@ public class Note {
     @Lob
     private String note;
 
+    @NotBlank
+    private String author;
+
     private LocalDate createdAt;
 
     @PrePersist
@@ -25,7 +28,7 @@ public class Note {
     }
 
     @ManyToOne
-    @JoinColumn(name = "ticket_id", nullable = false)
+    @JoinColumn(name = "ticket_id", nullable=false)
     private Ticket ticket;
 
     //Getter and Setter
@@ -46,11 +49,27 @@ public class Note {
         this.note = note;
     }
 
+    public @NotBlank String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(@NotBlank String author) {
+        this.author = author;
+    }
+
     public LocalDate getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
 }

@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     List<Ticket> findByTitleContainingIgnoreCaseOrderByTitleAsc(String title);
     Optional<Ticket> findByStatus(boolean status);
+    Ticket findById(int id);
 }
