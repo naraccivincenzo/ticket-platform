@@ -5,55 +5,37 @@
     <title>Ticket Platform</title>
 </head>
 <body>
-<header th:insert="~{/components/fragments :: navbar('discounts')}"></header>
+<header th:insert="~{/components/fragments :: navbar('admin')}"></header>
 
 <main class="container">
     <div class="row justify-content-center">
         <div class="col-6">
             <h1 class="py-3 text-center">Insert a new note for
-                <span th:text="${note.getTicket().title}"></span>
+<!--                <span th:text="${note.getTicket().title}"></span>-->
             </h1>
-            <form id="pizza-form" th:object="${note}" th:action="@{'/common/' + ${ticket.id} + 'note'}" method="POST">
+            <form id="note-form" th:object="${note}"
+                  th:action="@{'/common/' + ${note.getTicket().id} + '/note'}"
+                  method="POST">
 
-                <input type="hidden" th:field="*{note}" id="note">
+                <input type="hidden" th:field="*{note}" id="notes">
                 <!--                <div th:if="${#fields.hasAnyErrors()}">-->
                 <!--                    <ul>-->
                 <!--                        <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />-->
                 <!--                    </ul>-->
                 <!--                </div>-->
                 <div class="mb-3">
-                    <label for="comments" class="form-label">Description</label>
-                    <input type="text" class="form-control" id="comments"
-                           th:classappend="${#fields.hasErrors('comments')}? 'is-invalid'"
+                    <label for="note" class="form-label">Description</label>
+                    <input type="text" class="form-control" id="note"
+                           th:classappend="${#fields.hasErrors('note')}? 'is-invalid'"
                            placeholder="Description" th:field="*{note}">
-                    <div th:if="${#fields.hasErrors('comments')}" class="invalid-feedback">
+                    <div th:if="${#fields.hasErrors('note')}" class="invalid-feedback">
                         <ul>
-                            <li th:each="err : ${#fields.errors('comments')}" th:text="${err}"></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="author" class="form-label">Author of the note</label>
-                    <input type="text" class="form-control" id="author" placeholder="Author of the note"
-                           th:classappend="${#fields.hasErrors('author')}? 'is-invalid'" th:field="*{author}">
-                    <div th:if="${#fields.hasErrors('author')}" class="invalid-feedback">
-                        <ul>
-                            <li th:each="err : ${#fields.errors('author')}" th:text="${err}"></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="createdAt" class="form-label">Creation Date</label>
-                    <input type="date" class="form-control" id="createdAt" placeholder="Creation Date"
-                           th:classappend="${#fields.hasErrors('createdAt')}? 'is-invalid'" th:field="*{createdAt}">
-                    <div th:if="${#fields.hasErrors('createdAt')}" class="invalid-feedback">
-                        <ul>
-                            <li th:each="err : ${#fields.errors('createdAt')}" th:text="${err}"></li>
+                            <li th:each="err : ${#fields.errors('note')}" th:text="${err}"></li>
                         </ul>
                     </div>
                 </div>
                 <div>
-                    <input type="submit" class="btn btn-primary btn-lg" value="Insert a new special offer">
+                    <input type="submit" class="btn btn-primary btn-lg" value="Insert a new note">
                     <input type="reset" class="btn btn-warning btn-lg" value="Reset fields">
                     <a class="btn btn-danger btn-lg" th:href="@{/admin}">Go Back</a>
                 </div>

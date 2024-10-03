@@ -3,6 +3,9 @@ package org.lessons.booleaners.ticketplatform.service;
 import org.lessons.booleaners.ticketplatform.model.User;
 import org.lessons.booleaners.ticketplatform.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +35,16 @@ public class UserService {
 
     public Optional<User> findByAvailability(boolean availability) {
         return repository.findByAvailability(availability);
+    }
+
+
+    public String getCurrentUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            return ((UserDetails) authentication.getPrincipal()).getUsername();
+        } else {
+            return authentication.getName();
+        }
     }
 
     public User create(User user) {

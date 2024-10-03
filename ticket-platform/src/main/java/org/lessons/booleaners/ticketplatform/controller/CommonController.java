@@ -3,6 +3,7 @@ package org.lessons.booleaners.ticketplatform.controller;
 import org.lessons.booleaners.ticketplatform.model.Note;
 import org.lessons.booleaners.ticketplatform.service.NoteService;
 import org.lessons.booleaners.ticketplatform.service.TicketService;
+import org.lessons.booleaners.ticketplatform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,8 @@ public class CommonController {
     private TicketService ticketService;
     @Autowired
     private NoteService noteService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     public String homepage() {
@@ -30,25 +33,29 @@ public class CommonController {
         return "/common/ticketShow";
     }
 
-    @GetMapping("/{id}/note")
+    @GetMapping("/common/{id}/note")
     public String create(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("ticket", ticketService.findById(id));
-        model.addAttribute("note", new Note());
+        Note note = new Note();
+        note.setTicket(ticketService.findById(id));
+        model.addAttribute("note", note);
         return "/common/noteCreate";
     }
 
-    @PostMapping("/{id}/note")
+    @PostMapping("/common/{id}/note")
     public String store(@PathVariable Integer id, @ModelAttribute("note") Note formNote,
                         BindingResult bindingResult,
                         RedirectAttributes attributes) {
         if (bindingResult.hasErrors()) {
             return "/common/noteCreate";
         }
-        formNote.setId(id);
-        noteService.create(formNote);
-        attributes.addFlashAttribute("createMessage", "Special Offer " + formNote.getNote() + " was successfully inserted");
 
-        return "redirect:/common/" + formNote.getTicket().getId();
+        formNote.setTicket(ticketService.findById(id));
+        formNote.setAuthor(userService.getCurrentUsername());
+        formNote.setId(null);
+        noteService.create(formNote);
+        attributes.addFlashAttribute("createMessage", "New note " + formNote.getNote() + " was successfully inserted");
+
+        return "redirect:/common/" + id;
     }
 
 
