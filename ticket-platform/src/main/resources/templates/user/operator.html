@@ -5,12 +5,42 @@
     <title>Ticket Platform</title>
 </head>
 <body>
+<header sec:authorize="hasAuthority('ADMIN')" th:insert="~{/components/fragments :: navbar('admin')}"></header>
+<header sec:authorize="hasAuthority('USER')" th:insert="~{/components/fragments :: navbar('operator')}"></header>
 
+<main class="container mt-3">
+    <div class="row row-cols-1 row-cols-2 g-4">
+        <div class="col">
+            <div class="card text-center w-auto mb-3" th:each="ticket : ${tickets}">
+                <div class="card-header" th:text="${ticket.id} + ' - ' + ${ticket.title}"></div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:text="${ticket.category}"></li>
+                    <li class="list-group-item" th:text="${ticket.description}"></li>
+                    <li class="list-group-item" th:text="${ticket.createdAt}"></li>
+                </ul>
+                <div th:if="${ticket.isStatus()}"
+                     class="card-footer bg-danger text-white"
+                     th:text="${ticket.humanStatus(ticket.isStatus())}"></div>
+                <div th:unless="${ticket.isStatus()}"
+                     class="card-footer bg-success text-white"
+                     th:text="${ticket.humanStatus(ticket.isStatus())}"></div>
 
+            </div>
 
+        </div>
+        <div class="col">
+            <div class="card text-center" th:object="${tickets.get(0).getUser()}">
+                <img src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png" class="card-img-top w-25 mx-auto" alt="profile pic">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="*{username}"></h5>
+                    <p class="card-text" th:text="*{email}"></p>
+                </div>
+            </div>
+        </div>
 
+    </div>
 
-
+</main>
 
 
 

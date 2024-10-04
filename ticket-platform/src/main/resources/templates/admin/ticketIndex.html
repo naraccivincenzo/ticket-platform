@@ -32,6 +32,7 @@
                     <tr>
                         <th>#</th>
                         <th>Title</th>
+                        <th>Category</th>
                         <th>Description</th>
                         <th>Creation Date</th>
                         <th>Status</th>
@@ -42,6 +43,7 @@
                     <tr th:each="ticket : ${tickets}">
                         <td th:text="${ticket.id}"></td>
                         <td th:text="${ticket.title}"></td>
+                        <td th:text="${ticket.category}"></td>
                         <td th:text="${ticket.description}"></td>
                         <td th:text="${ticket.createdAt}"></td>
                         <td th:text="${ticket.humanStatus(ticket.isStatus())}"></td>

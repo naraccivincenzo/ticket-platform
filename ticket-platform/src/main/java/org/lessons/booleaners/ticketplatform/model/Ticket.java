@@ -21,6 +21,8 @@ public class Ticket {
 
     private LocalDate createdAt;
 
+    private String category;
+
     @Column(columnDefinition = "TINYINT(1)")
     private boolean status;
 
@@ -68,6 +70,14 @@ public class Ticket {
 
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public boolean isStatus() {

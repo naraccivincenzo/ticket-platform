@@ -2,6 +2,7 @@ package org.lessons.booleaners.ticketplatform.service;
 
 import org.lessons.booleaners.ticketplatform.model.User;
 import org.lessons.booleaners.ticketplatform.repo.UserRepository;
+import org.lessons.booleaners.ticketplatform.security.DatabaseUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,7 +30,7 @@ public class UserService {
         return repository.findByEmail(email);
     }
 
-    public Optional<User> findById(int id) {
+    public Optional<User> findById(Integer id) {
         return repository.findById(id);
     }
 
@@ -44,6 +45,15 @@ public class UserService {
             return ((UserDetails) authentication.getPrincipal()).getUsername();
         } else {
             return authentication.getName();
+        }
+    }
+
+    public Integer getCurrentUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof DatabaseUserDetails userDetails) {
+            return userDetails.getId();
+        } else {
+            return null;
         }
     }
 

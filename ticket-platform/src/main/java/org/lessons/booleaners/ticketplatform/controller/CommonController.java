@@ -23,7 +23,7 @@ public class CommonController {
     private UserService userService;
 
     @GetMapping
-    public String homepage() {
+    public String home() {
         return "/common/homepage";
     }
     @GetMapping("/common/{id}")

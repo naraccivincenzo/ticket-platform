@@ -18,7 +18,7 @@ public class AdminController {
     private TicketService tktservice;
 
     @GetMapping
-    public String adminIndex(Model model,
+    public String ticket(Model model,
                              Authentication authentication,
                              @RequestParam(name = "title", required = false)
                              String title) {

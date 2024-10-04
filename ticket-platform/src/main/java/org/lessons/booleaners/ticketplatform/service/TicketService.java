@@ -29,6 +29,10 @@ public class TicketService {
         return repository.findByStatus(status);
     }
 
+    public List<Ticket> findByUser(int userId) {
+        return repository.findByUserId(userId);
+    }
+
     public Ticket create(Ticket ticket) {
         return repository.save(ticket);
     }
