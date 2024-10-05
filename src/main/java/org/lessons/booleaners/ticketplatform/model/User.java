@@ -23,7 +23,6 @@ public class User {
     @NotBlank
     private String password;
 
-    @NotBlank
     private boolean availability;
 
     @OneToMany(mappedBy = "user")
@@ -66,17 +65,12 @@ public class User {
         this.password = password;
     }
 
-    public @NotBlank boolean getAvailability() {
+    public boolean getAvailability() {
         return availability;
     }
 
-    public void setAvailability(@NotBlank boolean availability) {
+    public void setAvailability(boolean availability) {
         this.availability = availability;
-    }
-
-    @NotBlank
-    public boolean isAvailability() {
-        return availability;
     }
 
     public List<Ticket> getTickets() {

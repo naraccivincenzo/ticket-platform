@@ -25,6 +25,7 @@
                      class="card-footer bg-success text-white"
                      th:text="${ticket.humanStatus(ticket.isStatus())}"></div>
 
+
             </div>
 
         </div>
@@ -35,6 +36,18 @@
                     <h5 class="card-title" th:text="*{username}"></h5>
                     <p class="card-text" th:text="*{email}"></p>
                 </div>
+                <form th:action="@{/user}" method="post">
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="availability" th:id="|availability_active|" autocomplete="off" th:value="true" th:checked="*{getAvailability() == true}">
+                        <label class="btn btn-outline-primary" th:for="|availability_active|">Active</label>
+
+                        <input type="radio" class="btn-check" name="availability" th:id="|availability_inactive|" autocomplete="off" th:value="false" th:checked="*{getAvailability() == false}">
+                        <label class="btn btn-outline-primary" th:for="|availability_inactive|">Inactive</label>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary">Update Availability</button>
+                    </div>
+                </form>
             </div>
         </div>
 

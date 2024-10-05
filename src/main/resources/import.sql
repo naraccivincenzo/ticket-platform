@@ -2,7 +2,7 @@
 INSERT INTO `ticket-platform`.role (role)VALUES ('ADMIN'),('USER');
 
 -- Inserimento utenti (incluso l'admin)
-INSERT INTO `ticket-platform`.users (username, email, password, availability)VALUES ('admin', 'admin@example.com', '{noop}password', true),('user1', 'user1@example.com', '{noop}password', true),('user2', 'user2@example.com', '{noop}password', true);
+INSERT INTO `ticket-platform`.users (username, email, password, availability)VALUES ('admin', 'admin@example.com', '{noop}password', 1),('user1', 'user1@example.com', '{noop}password', 1),('user2', 'user2@example.com', '{noop}password', 1);
 
 -- Inserimento ticket
 INSERT INTO `ticket-platform`.ticket (title, description, created_at, category, status, user_id)VALUES ('Problema di accesso', 'Non riesco ad accedere al sistema', '2024-09-29','Livello 1', false, 2),('Errore nel report', 'Il report mensile non si carica correttamente', '2024-09-29','Livello 2', true, 3),('Problema di esecuzione', 'Non riesco ad eseguire il programma', '2024-09-29','Livello 1', false, 2),('Errore di stampa', 'La stampa del report mensile non viene eseguita correttamente', '2024-09-29','Livello 2', true, 3);
