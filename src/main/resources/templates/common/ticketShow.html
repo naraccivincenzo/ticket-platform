@@ -8,16 +8,27 @@
 <header sec:authorize="hasAuthority('ADMIN')" th:insert="~{/components/fragments :: navbar('admin')}"></header>
 <header sec:authorize="hasAuthority('USER')" th:insert="~{/components/fragments :: navbar('operator')}"></header>
 
-<main class="container">
-    <div class="row">
-        <h2 class="py-3 text-center">Detail for [[${ticket.title}]]</h2>
-        <div class="col-6">
+<main class="container mt-3">
+    <h2 class="py-3 text-center">Detail for [[${ticket.title}]]</h2>
+    <th:block th:if="${deleteMessage != null}">
+        <div th:replace="~{/components/fragments :: deleteAlert(${deleteMessage})}"></div>
+    </th:block>
+    <th:block th:if="${updateMessage != null}">
+        <div th:replace="~{/components/fragments :: successAlert(${updateMessage})}"></div>
+    </th:block>
+    <th:block th:if="${createMessage != null}">
+        <div th:replace="~{/components/fragments :: successAlert(${createMessage})}"></div>
+    </th:block>
+
+    <div class="row row-cols-1 row-cols-2 g-4">
+        <div class="col">
             <th:block th:object="${ticket}">
-                <div class="d-flex justify-content-center">
+
                     <div class="card text-center w-auto">
                         <div class="card-body">
-                            <h6 th:if="*{isStatus()}" class="card-subtitle mb-2 bg-danger text-white">[[*{humanStatus(isStatus())}]]</h6>
-                            <h6 th:unless="*{isStatus()}" class="card-subtitle mb-2 bg-success text-white">[[*{humanStatus(isStatus())}]]</h6>
+                            <h6 th:if="${ticket.getStatus().name() == 'completed'}" class="bg-success text-center text-white">Completed</h6>
+                            <h6 th:if="${ticket.getStatus().name() == 'toDo'}" class="bg-danger text-white text-center">To Do</h6>
+                            <h6 th:if="${ticket.getStatus().name() == 'current'}" class="bg-warning text-center">Current</h6>
                             <p class="card-text">[[*{description}]]</p>
                             <p class="card-footer" th:if="*{getUser() != null}">
                                 User: [[*{getUser().username}]]
@@ -26,12 +37,11 @@
                             <a sec:authorize="hasAuthority('USER')" th:href="@{/user}" class="btn btn-primary">Go Back</a>
                         </div>
                     </div>
-                </div>
             </th:block>
         </div>
-        <div class="col-6">
+        <div class="col">
             <th:block th:object="${note}">
-                <div class="d-flex justify-content-center">
+
                     <div class="card text-center w-auto">
                         <div class="card-body">
                             <ul class="list-group list-group-flush" th:each="note : ${ticket.notes}">
@@ -44,10 +54,9 @@
 
                         </div>
                     </div>
-                </div>
+
             </th:block>
         </div>
-
     </div>
 </main>
 

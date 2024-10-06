@@ -18,13 +18,14 @@
                     <li class="list-group-item" th:text="${ticket.description}"></li>
                     <li class="list-group-item" th:text="${ticket.createdAt}"></li>
                 </ul>
-                <div th:if="${ticket.isStatus()}"
-                     class="card-footer bg-danger text-white"
-                     th:text="${ticket.humanStatus(ticket.isStatus())}"></div>
-                <div th:unless="${ticket.isStatus()}"
-                     class="card-footer bg-success text-white"
-                     th:text="${ticket.humanStatus(ticket.isStatus())}"></div>
 
+                <div th:if="${ticket.getStatus().name() == 'completed'}"
+                     class="bg-success text-center text-white">Completed</div>
+                <div th:if="${ticket.getStatus().name() == 'toDo'}"
+                     class="bg-danger text-white text-center">To Do</div>
+                <div th:if="${ticket.getStatus().name() == 'current'}"
+                     class="bg-warning text-center">Current</div>
+                <a th:href="@{/common/{id}(id=${ticket.id})}" class="btn btn-sm btn-primary">Show</a>
 
             </div>
 

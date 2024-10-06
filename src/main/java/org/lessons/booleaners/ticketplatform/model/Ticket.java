@@ -2,6 +2,7 @@ package org.lessons.booleaners.ticketplatform.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,12 +20,19 @@ public class Ticket {
     @NotBlank
     private String description;
 
+    @UpdateTimestamp
     private LocalDate createdAt;
 
     private String category;
 
-    @Column(columnDefinition = "TINYINT(1)")
-    private boolean status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    public enum Status{
+        completed,
+        toDo,
+        current
+    }
 
     @PrePersist
     protected void onCreate() {
@@ -80,19 +88,12 @@ public class Ticket {
         this.category = category;
     }
 
-    public boolean isStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public String humanStatus(boolean status) {
-        if (status) {
-            return "Open";
-        }
-        return "Closed";
     }
 
     public User getUser() {

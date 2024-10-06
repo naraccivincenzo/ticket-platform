@@ -25,7 +25,7 @@ public class TicketService {
         return repository.findByTitleContainingIgnoreCaseOrderByTitleAsc(title);
     }
 
-    public Optional<Ticket> findByStatus(boolean status) {
+    public Optional<Ticket> findByStatus(Ticket.Status status) {
         return repository.findByStatus(status);
     }
 

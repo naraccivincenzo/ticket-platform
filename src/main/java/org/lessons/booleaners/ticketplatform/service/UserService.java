@@ -34,7 +34,7 @@ public class UserService {
         return repository.findById(id);
     }
 
-    public Optional<User> findByAvailability(boolean availability) {
+    public List<User> findByAvailability(boolean availability) {
         return repository.findByAvailability(availability);
     }
 

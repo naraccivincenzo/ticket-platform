@@ -5,24 +5,19 @@
     <title>Ticket Platform</title>
 </head>
 <body>
-<header th:insert="~{/components/fragments :: navbar('admin')}"></header>
+<header sec:authorize="hasAuthority('ADMIN')" th:insert="~{/components/fragments :: navbar('admin')}"></header>
+<header sec:authorize="hasAuthority('USER')" th:insert="~{/components/fragments :: navbar('operator')}"></header>
 
 <main class="container">
     <div class="row justify-content-center">
+        <h1 class="py-3 text-center">Insert a new note for
+            <span th:text="${note.getTicket().title}"></span>
+        </h1>
         <div class="col-6">
-            <h1 class="py-3 text-center">Insert a new note for
-<!--                <span th:text="${note.getTicket().title}"></span>-->
-            </h1>
             <form id="note-form" th:object="${note}"
                   th:action="@{'/common/' + ${note.getTicket().id} + '/note'}"
                   method="POST">
-
                 <input type="hidden" th:field="*{note}" id="notes">
-                <!--                <div th:if="${#fields.hasAnyErrors()}">-->
-                <!--                    <ul>-->
-                <!--                        <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />-->
-                <!--                    </ul>-->
-                <!--                </div>-->
                 <div class="mb-3">
                     <label for="note" class="form-label">Description</label>
                     <input type="text" class="form-control" id="note"
@@ -37,7 +32,8 @@
                 <div>
                     <input type="submit" class="btn btn-primary btn-lg" value="Insert a new note">
                     <input type="reset" class="btn btn-warning btn-lg" value="Reset fields">
-                    <a class="btn btn-danger btn-lg" th:href="@{/admin}">Go Back</a>
+                    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}" class="btn btn-primary btn-lg">Go Back</a>
+                    <a sec:authorize="hasAuthority('USER')" th:href="@{/user}" class="btn btn-primary btn-lg">Go Back</a>
                 </div>
             </form>
 

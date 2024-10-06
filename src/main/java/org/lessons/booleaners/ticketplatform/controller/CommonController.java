@@ -34,7 +34,7 @@ public class CommonController {
     }
 
     @GetMapping("/common/{id}/note")
-    public String create(@PathVariable("id") Integer id, Model model) {
+    public String createNote(@PathVariable("id") Integer id, Model model) {
         Note note = new Note();
         note.setTicket(ticketService.findById(id));
         model.addAttribute("note", note);
@@ -42,7 +42,7 @@ public class CommonController {
     }
 
     @PostMapping("/common/{id}/note")
-    public String store(@PathVariable Integer id, @ModelAttribute("note") Note formNote,
+    public String storeNote(@PathVariable Integer id, @ModelAttribute("note") Note formNote,
                         BindingResult bindingResult,
                         RedirectAttributes attributes) {
         if (bindingResult.hasErrors()) {
@@ -57,6 +57,5 @@ public class CommonController {
 
         return "redirect:/common/" + id;
     }
-
 
 }
