@@ -5,6 +5,7 @@ import org.lessons.booleaners.ticketplatform.repo.UserRepository;
 import org.lessons.booleaners.ticketplatform.security.DatabaseUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,17 @@ public class UserService {
         } else {
             return authentication.getName();
         }
+    }
+
+    public String getCurrentUserRole() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            for (GrantedAuthority authority : authentication.getAuthorities()) {
+                return authority.getAuthority();
+            }
+        }
+        return null;
     }
 
     public Integer getCurrentUserId() {

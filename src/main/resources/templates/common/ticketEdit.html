@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      lang="it">
+<head th:replace="~{/components/fragments :: head}">    <meta charset="UTF-8">
+  <title>Ticket Platform</title>
+</head>
+<body>
+<header th:insert="~{/components/fragments :: navbar('admin')}"></header>
+
+<main class="container">
+  <div class="row justify-content-center">
+    <h1 class="py-3 text-center" th:text="'Modify status of the ticket ' + ${ticket.title}"></h1>
+    <div class="col-6">
+      <form id="ticket-form" th:object="${ticket}"
+            th:action="@{/edit/{id}(id=${ticket.id})}" method="POST">
+
+        <label>Status:</label>
+
+
+        <div class="btn-group" role="group" aria-label="Status Selection">
+          <input type="radio" class="btn-check" name="status"
+                 th:id="|status_toDo|" autocomplete="off" th:value="'toDo'"
+                 th:checked="${ticket.getStatus().name().toString() == 'toDo'}">
+          <label class="btn btn-outline-primary" th:for="|status_toDo|">To Do</label>
+
+          <input type="radio" class="btn-check" name="status"
+                 th:id="|status_current|" autocomplete="off" th:value="'current'"
+                 th:checked="${ticket.getStatus().name().toString() == 'current'}">
+          <label class="btn btn-outline-primary" th:for="|status_current|">Current</label>
+
+          <input type="radio" class="btn-check" name="status"
+                 th:id="|status_completed|" autocomplete="off" th:value="'completed'"
+                 th:checked="${ticket.getStatus().name().toString() == 'completed'}">
+          <label class="btn btn-outline-primary" th:for="|status_completed|">Completed</label>
+        </div>
+
+
+        <div class="mt-3 text-center">
+          <input type="submit" class="btn btn-primary btn-lg" value="Save ticket">
+          <input type="reset" class="btn btn-warning btn-lg" value="Reset fields">
+          <a th:href="@{/user}" class="btn btn-danger btn-lg">Go Back</a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</main>
+<th:block th:replace="~{/components/fragments :: scripts}"></th:block>
+</body>
+</html>

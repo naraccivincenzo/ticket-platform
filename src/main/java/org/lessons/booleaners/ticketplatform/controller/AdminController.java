@@ -41,24 +41,30 @@ public class AdminController {
         return "/admin/ticketIndex";
     }
 
-    @GetMapping("/create")
-    public String createTicket (Model model) {
-        model.addAttribute("ticket", new Ticket());
-        model.addAttribute("user", userservice.findByAvailability(true));
-        return "/admin/ticketCreate";
+
+    @PostMapping("/delete/{id}")
+    public void deleteTicket(@PathVariable("id") Integer id) {
+        tktservice.delete(id);
     }
 
-    @PostMapping("/create")
-    public String storeTicket(@Valid @ModelAttribute("ticket") Ticket formTicket,
-                              BindingResult bindingResult,
-                              Model model,
-                              RedirectAttributes attributes) {
+    @GetMapping("/edit/{id}")
+    public String editTicket (@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("ticket", tktservice.findById(id));
+        model.addAttribute("user", userservice.findByAvailability(true));
+        return "/admin/ticketEdit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateTicket(@Valid @ModelAttribute("ticket") Ticket formTicket,
+                               BindingResult bindingResult,
+                               Model model,
+                               RedirectAttributes attributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", userservice.findByAvailability(true));
-            return "/admin/ticketCreate";
+            return "/admin/ticketEdit";
         }
-        tktservice.create(formTicket);
-        attributes.addFlashAttribute("createMessage", "Ticket " + formTicket.getTitle() + " successfully inserted");
+        tktservice.update(formTicket);
+        attributes.addFlashAttribute("createMessage", "Ticket " + formTicket.getTitle() + " successfully updated");
         return "redirect:/admin";
     }
 

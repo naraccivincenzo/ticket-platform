@@ -41,7 +41,7 @@ public class TicketService {
         return repository.save(ticket);
     }
 
-    public void delete(Ticket ticket) {
-        repository.delete(ticket);
+    public void delete(int id) {
+        repository.deleteById(id);
     }
 }
