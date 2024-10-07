@@ -1,5 +1,6 @@
 package org.lessons.booleaners.ticketplatform.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -26,6 +27,7 @@ public class User {
     private boolean availability;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private List<Ticket> tickets;
 
     @ManyToMany(fetch = FetchType.EAGER)

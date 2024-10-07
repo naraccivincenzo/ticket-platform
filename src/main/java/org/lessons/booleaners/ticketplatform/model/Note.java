@@ -1,5 +1,6 @@
 package org.lessons.booleaners.ticketplatform.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -29,6 +30,7 @@ public class Note{
 
     @ManyToOne
     @JoinColumn(name = "ticket_id", nullable=false)
+    @JsonBackReference
     private Ticket ticket;
 
     //Getter and Setter

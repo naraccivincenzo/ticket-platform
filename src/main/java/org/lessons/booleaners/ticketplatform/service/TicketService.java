@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TicketService {
@@ -25,8 +24,12 @@ public class TicketService {
         return repository.findByTitleContainingIgnoreCaseOrderByTitleAsc(title);
     }
 
-    public Optional<Ticket> findByStatus(Ticket.Status status) {
+    public List<Ticket> findByStatus(Ticket.Status status) {
         return repository.findByStatus(status);
+    }
+
+    public List<Ticket> findByCategory(String title) {
+        return repository.findByCategoryContainingIgnoreCase(title);
     }
 
     public List<Ticket> findByUser(int userId) {

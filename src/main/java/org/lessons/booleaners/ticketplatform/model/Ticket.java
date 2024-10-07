@@ -1,5 +1,6 @@
 package org.lessons.booleaners.ticketplatform.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -41,9 +42,11 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonManagedReference
     private User user;
 
     @OneToMany(mappedBy = "ticket", cascade = {CascadeType.REMOVE})
+    @JsonManagedReference
     private List<Note> notes;
 
     //Getter and Setter
