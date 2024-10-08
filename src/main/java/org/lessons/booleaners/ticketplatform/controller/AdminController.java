@@ -43,8 +43,9 @@ public class AdminController {
 
 
     @PostMapping("/delete/{id}")
-    public void deleteTicket(@PathVariable("id") Integer id) {
+    public String deleteTicket(@PathVariable("id") Integer id) {
         ticketService.delete(id);
+        return "redirect:/admin";
     }
 
     @GetMapping("/edit/{id}")

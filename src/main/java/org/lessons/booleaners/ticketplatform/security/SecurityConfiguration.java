@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -16,28 +15,16 @@ public class SecurityConfiguration {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/**").hasAuthority("USER")
-                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers("/admin").hasAuthority("ADMIN")
-                        .requestMatchers("/common/**").permitAll()
-                        .requestMatchers("/").permitAll()
-                )
-                .formLogin(login -> login
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/")
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
-                        .permitAll()
-                )
-                .exceptionHandling(ex -> ex
-                        .accessDeniedPage("/access-denied")
-                )
-                .csrf(AbstractHttpConfigurer :: disable);
+        http.authorizeRequests()
+                .requestMatchers("/user/**").hasAuthority("USER")
+                .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                .requestMatchers("/admin").hasAuthority("ADMIN")
+                .requestMatchers("/common/**").permitAll()
+                .requestMatchers("/").permitAll()
+                .and().formLogin()
+                .and().logout()
+                .and().exceptionHandling()
+                .and().csrf().disable();
 
         return http.build();
     }

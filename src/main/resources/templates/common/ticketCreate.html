@@ -64,7 +64,8 @@
         <div class="mt-3">
           <label>User:</label>
 
-          <div class="btn-group" role="group" aria-label="User Selection" th:each="user : ${user} " th:if="${user.availability}">
+          <div class="btn-group" role="group" aria-label="User Selection"
+               th:each="user : ${user}" th:if="${user.availability}">
             <input type="radio" class="btn-check" name="user"
                    th:id="|user_${user.id}|" autocomplete="off" th:value="${user.id}">
             <label class="btn btn-outline-primary" th:for="|user_${user.id}|"

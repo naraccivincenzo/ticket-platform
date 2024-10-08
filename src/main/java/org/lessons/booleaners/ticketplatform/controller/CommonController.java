@@ -59,7 +59,7 @@ public class CommonController {
         noteService.create(formNote);
         attributes.addFlashAttribute("createMessage", "New note " + formNote.getNote() + " was successfully inserted");
 
-        return "redirect:/common/" + id;
+        return "redirect:/" + id;
     }
 
     @GetMapping("/create")

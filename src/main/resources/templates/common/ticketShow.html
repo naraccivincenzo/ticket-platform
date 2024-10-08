@@ -49,7 +49,7 @@
                             <li class="list-group-item" th:text="'Creator: ' + ${note.author}"></li>
                             <li class="list-group-item" th:text="'Create at: ' + ${note.createdAt}"></li>
                         </ul>
-                        <a th:href="@{/common/{id}/note(id=${ticket.id})}" class="btn btn-success">Nuova Nota</a>
+                        <a th:href="@{/{id}/note(id=${ticket.id})}" class="btn btn-success">Nuova Nota</a>
 
 
                     </div>
