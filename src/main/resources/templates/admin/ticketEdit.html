@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
-      lang="it">
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
 <head th:replace="~{/components/fragments :: head}">    <meta charset="UTF-8">
   <title>Ticket Platform</title>
 </head>
@@ -48,7 +47,7 @@
         <label>Status:</label>
 
 
-        <div class="btn-group" role="group" aria-label="Selezione Stato">
+        <div class="btn-group" role="group" aria-label="Status selection">
           <input type="radio" class="btn-check" name="status"
                  th:id="|status_toDo|" autocomplete="off" th:value="'toDo'"
                  th:checked="${ticket.getStatus().name().toString() == 'toDo'}">

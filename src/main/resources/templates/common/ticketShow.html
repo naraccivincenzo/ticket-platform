@@ -24,36 +24,36 @@
         <div class="col">
             <th:block th:object="${ticket}">
 
-                    <div class="card text-center w-auto">
-                        <div class="card-body">
-                            <h6 th:if="${ticket.getStatus().name() == 'completed'}" class="bg-success text-center text-white">Completed</h6>
-                            <h6 th:if="${ticket.getStatus().name() == 'toDo'}" class="bg-danger text-white text-center">To Do</h6>
-                            <h6 th:if="${ticket.getStatus().name() == 'current'}" class="bg-warning text-center">Current</h6>
-                            <p class="card-text">[[*{description}]]</p>
-                            <p class="card-footer" th:if="*{getUser() != null}">
-                                User: [[*{getUser().username}]]
-                            </p>
-                            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}" class="btn btn-primary">Go Back</a>
-                            <a sec:authorize="hasAuthority('USER')" th:href="@{/user}" class="btn btn-primary">Go Back</a>
-                        </div>
+                <div class="card text-center w-auto">
+                    <div class="card-body">
+                        <h6 th:if="${ticket.getStatus().name() == 'completed'}" class="bg-success text-center text-white">Completed</h6>
+                        <h6 th:if="${ticket.getStatus().name() == 'toDo'}" class="bg-danger text-white text-center">To Do</h6>
+                        <h6 th:if="${ticket.getStatus().name() == 'current'}" class="bg-warning text-center">Current</h6>
+                        <p class="card-text">[[*{description}]]</p>
+                        <p class="card-footer" th:if="*{getUser() != null}">
+                            User: [[*{getUser().username}]]
+                        </p>
+                        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}" class="btn btn-primary">Go Back</a>
+                        <a sec:authorize="hasAuthority('USER')" th:href="@{/user}" class="btn btn-primary">Go Back</a>
                     </div>
+                </div>
             </th:block>
         </div>
         <div class="col">
             <th:block th:object="${note}">
 
-                    <div class="card text-center w-auto">
-                        <div class="card-body">
-                            <ul class="list-group list-group-flush" th:each="note : ${ticket.notes}">
-                                <li class="list-group-item" th:text="'Description: ' + ${note.note}"></li>
-                                <li class="list-group-item" th:text="'Creator: ' + ${note.author}"></li>
-                                <li class="list-group-item" th:text="'Create at: ' + ${note.createdAt}"></li>
-                            </ul>
-                            <a th:href="@{/common/{id}/note(id=${ticket.id})}" class="btn btn-success">Nuova Nota</a>
+                <div class="card text-center w-auto">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush" th:each="note : ${ticket.notes}">
+                            <li class="list-group-item" th:text="'Description: ' + ${note.note}"></li>
+                            <li class="list-group-item" th:text="'Creator: ' + ${note.author}"></li>
+                            <li class="list-group-item" th:text="'Create at: ' + ${note.createdAt}"></li>
+                        </ul>
+                        <a th:href="@{/common/{id}/note(id=${ticket.id})}" class="btn btn-success">Nuova Nota</a>
 
 
-                        </div>
                     </div>
+                </div>
 
             </th:block>
         </div>

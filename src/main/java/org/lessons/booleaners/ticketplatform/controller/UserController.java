@@ -17,7 +17,7 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    private TicketService tktservice;
+    private TicketService ticketService;
 
     @Autowired
     private UserService userservice;
@@ -29,13 +29,13 @@ public class UserController {
     public String userIndex(Model model) {
 
         Integer userId = userservice.getCurrentUserId();
-        List<Ticket> userTickets = tktservice.findByUser(userId);
+        List<Ticket> userTickets = ticketService.findByUser(userId);
         model.addAttribute("userId", userId);
 
         boolean canUpdateStatus = userTickets.stream()
                 .allMatch(ticket -> ticket.getStatus() == Ticket.Status.completed);
         model.addAttribute("canUpdateStatus", canUpdateStatus);
-        model.addAttribute("tickets", tktservice.findByUser(userId));
+        model.addAttribute("tickets", ticketService.findByUser(userId));
         return "/user/operator";
     }
 
@@ -43,7 +43,7 @@ public class UserController {
     public String updateUserStatus(@RequestParam("availability") boolean availability) {
 
         Integer userId = userservice.getCurrentUserId();
-        List<Ticket> userTickets = tktservice.findByUser(userId);
+        List<Ticket> userTickets = ticketService.findByUser(userId);
         Optional<User> user = userservice.findById(userId);
 
         boolean allTicketsCompleted = userTickets.stream()

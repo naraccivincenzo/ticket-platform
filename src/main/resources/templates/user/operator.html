@@ -26,11 +26,10 @@
                 <div th:if="${ticket.getStatus().name() == 'current'}"
                      class="bg-warning text-center">Current</div>
                 <div class="my-2">
-                <a th:href="@{/{id}(id=${ticket.id})}" class="btn btn-sm btn-primary">Show</a>
-                <a th:href="@{/edit/{id}(id=${ticket.id})}" class="btn btn-sm btn-success">Edit</a>
+                    <a th:href="@{/{id}(id=${ticket.id})}" class="btn btn-sm btn-primary">Show</a>
+                    <a th:href="@{/edit/{id}(id=${ticket.id})}" class="btn btn-sm btn-success">Edit</a>
                 </div>
             </div>
-
         </div>
         <div class="col">
             <div class="card text-center" th:object="${tickets.get(0).getUser()}">
@@ -61,14 +60,11 @@
                     </form>
 
                 </div>
+            </div>
+
         </div>
-
     </div>
-
 </main>
-
-
-
 <th:block th:replace="~{/components/fragments :: scripts}"></th:block>
 </body>
 </html>

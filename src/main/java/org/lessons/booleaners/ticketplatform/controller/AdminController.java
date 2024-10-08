@@ -19,21 +19,21 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    private TicketService tktservice;
+    private TicketService ticketService;
 
     @Autowired
     private UserService userservice;
 
     @GetMapping
-    public String ticket(Model model,
-                             Authentication authentication,
-                             @RequestParam(name = "title", required = false)
-                             String title) {
+    public String index(Model model,
+                        Authentication authentication,
+                        @RequestParam(name = "title", required = false)
+                        String title) {
         List<Ticket> tickets;
         if (title != null && !title.isEmpty()) {
-            tickets = tktservice.findByTitle(title);
+            tickets = ticketService.findByTitle(title);
         }else {
-            tickets = tktservice.getAllTickets();
+            tickets = ticketService.getAllTickets();
         }
 
         model.addAttribute("username", authentication.getName());
@@ -44,12 +44,12 @@ public class AdminController {
 
     @PostMapping("/delete/{id}")
     public void deleteTicket(@PathVariable("id") Integer id) {
-        tktservice.delete(id);
+        ticketService.delete(id);
     }
 
     @GetMapping("/edit/{id}")
     public String editTicket (@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("ticket", tktservice.findById(id));
+        model.addAttribute("ticket", ticketService.findById(id));
         model.addAttribute("user", userservice.findByAvailability(true));
         return "/admin/ticketEdit";
     }
@@ -63,7 +63,7 @@ public class AdminController {
             model.addAttribute("user", userservice.findByAvailability(true));
             return "/admin/ticketEdit";
         }
-        tktservice.update(formTicket);
+        ticketService.update(formTicket);
         attributes.addFlashAttribute("createMessage", "Ticket " + formTicket.getTitle() + " successfully updated");
         return "redirect:/admin";
     }

@@ -46,30 +46,30 @@
         </div>
         <label>Status:</label>
 
-          <div class="btn-group" role="group" aria-label="Status Selection">
-            <input type="radio" class="btn-check" name="status"
-                   th:id="|status_toDo|" autocomplete="off" th:value="toDo">
-            <label class="btn btn-outline-primary" th:for="|status_toDo|">To Do</label>
+        <div class="btn-group" role="group" aria-label="Status Selection">
+          <input type="radio" class="btn-check" name="status"
+                 th:id="|status_toDo|" autocomplete="off" th:value="toDo">
+          <label class="btn btn-outline-primary" th:for="|status_toDo|">To Do</label>
 
-            <input type="radio" class="btn-check" name="status"
-                   th:id="|status_current|" autocomplete="off" th:value="current">
-            <label class="btn btn-outline-primary" th:for="|status_current|">Current</label>
+          <input type="radio" class="btn-check" name="status"
+                 th:id="|status_current|" autocomplete="off" th:value="current">
+          <label class="btn btn-outline-primary" th:for="|status_current|">Current</label>
 
-            <input type="radio" class="btn-check" name="status"
-                   th:id="|status_completed|" autocomplete="off" th:value="completed">
-            <label class="btn btn-outline-primary" th:for="|status_completed|">Completed</label>
+          <input type="radio" class="btn-check" name="status"
+                 th:id="|status_completed|" autocomplete="off" th:value="completed">
+          <label class="btn btn-outline-primary" th:for="|status_completed|">Completed</label>
 
-          </div>
+        </div>
 
         <div class="mt-3">
-        <label>User:</label>
+          <label>User:</label>
 
-        <div class="btn-group" role="group" aria-label="User Selection" th:each="user : ${user} " th:if="${user.availability}">
-          <input type="radio" class="btn-check" name="user"
-                 th:id="|user_${user.id}|" autocomplete="off" th:value="${user.id}">
-          <label class="btn btn-outline-primary" th:for="|user_${user.id}|"
-                 th:text="${user.username}">User</label>
-        </div>
+          <div class="btn-group" role="group" aria-label="User Selection" th:each="user : ${user} " th:if="${user.availability}">
+            <input type="radio" class="btn-check" name="user"
+                   th:id="|user_${user.id}|" autocomplete="off" th:value="${user.id}">
+            <label class="btn btn-outline-primary" th:for="|user_${user.id}|"
+                   th:text="${user.username}">User</label>
+          </div>
         </div>
 
         <div class="mt-3 text-center">

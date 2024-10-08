@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
-      lang="it">
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
 <head th:replace="~{/components/fragments :: head}">    <meta charset="UTF-8">
     <title>Ticket Platform</title>
 </head>
+
 <body>
-
 <header th:insert="~{/components/fragments :: navbar('admin')}"></header>
-
 
 <main class="container">
     <div class="row">
@@ -44,13 +42,13 @@
                         <td th:if="${ticket.getStatus().name() == 'current'}" class="bg-warning text-center">Current</td>
                         <td>
                             <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                            <a th:href="@{/{id}(id=${ticket.id})}" class="btn btn-sm btn-primary">Show</a>
-                            <a th:href="@{/admin/edit/{id}(id=${ticket.id})}" class="btn btn-sm btn-success">Edit</a>
+                                <a th:href="@{/{id}(id=${ticket.id})}" class="btn btn-sm btn-primary">Show</a>
+                                <a th:href="@{/admin/edit/{id}(id=${ticket.id})}" class="btn btn-sm btn-success">Edit</a>
 
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${ticket.id}">
-                                Delete
-                            </button>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${ticket.id}">
+                                    Delete
+                                </button>
                             </div>
                             <!-- Modal -->
                             <div class="modal fade" th:id="'delete-modal-' + ${ticket.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -86,15 +84,6 @@
         </div>
     </div>
 </main>
-
-
-
-
-
-
-
-
-
 <th:block th:replace="~{/components/fragments :: scripts}"></th:block>
 </body>
 </html>
